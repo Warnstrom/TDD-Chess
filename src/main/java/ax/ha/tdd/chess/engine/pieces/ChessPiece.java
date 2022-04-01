@@ -14,7 +14,7 @@ public abstract class ChessPiece {
     protected Coordinates location;
 
     public ChessPiece(PieceType pieceType, final Player player,
-                      final Coordinates location) {
+            final Coordinates location) {
         this.pieceType = pieceType;
         this.player = player;
         this.location = location;
@@ -22,7 +22,9 @@ public abstract class ChessPiece {
 
     public abstract String getSymbol();
 
-    public PieceType getPieceType() { return pieceType; }
+    public PieceType getPieceType() {
+        return pieceType;
+    }
 
     public Player getPlayer() {
         return player;
@@ -32,14 +34,14 @@ public abstract class ChessPiece {
         return location;
     }
 
-
     /**
      * Suggestion of design:
      * Checks if the chessPiece can move to a certain destination.
-     * I preferred to keep this logic tightly coupled to the pieces instead of the board,
+     * I preferred to keep this logic tightly coupled to the pieces instead of the
+     * board,
      * since that makes the separation of logic easier.
      *
-     * @param chessboard chessboard
+     * @param chessboard  chessboard
      * @param destination destination
      * @return true if piece can move to the destination
      */
@@ -47,8 +49,10 @@ public abstract class ChessPiece {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         ChessPiece that = (ChessPiece) o;
         return player == that.player && pieceType == that.pieceType;
     }
