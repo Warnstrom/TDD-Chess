@@ -16,11 +16,10 @@ public class Chessboard implements Iterable<ChessPiece[]> {
 
     public static Chessboard startingBoard() {
         final Chessboard chessboard = new Chessboard();
-
-        chessboard.withMirroredPiece(PieceType.PAWN, List.of(0,1,2,3,4,5,6,7), 1)
-                .withMirroredPiece(PieceType.ROOK, List.of(0,7), 0)
-                .withMirroredPiece(PieceType.KNIGHT, List.of(1,6), 0)
-                .withMirroredPiece(PieceType.BISHOP, List.of(2,5), 0)
+        chessboard.withMirroredPiece(PieceType.PAWN, List.of(0, 1, 2, 3, 4, 5, 6, 7), 1)
+                .withMirroredPiece(PieceType.ROOK, List.of(0, 7), 0)
+                .withMirroredPiece(PieceType.KNIGHT, List.of(1, 6), 0)
+                .withMirroredPiece(PieceType.BISHOP, List.of(2, 5), 0)
                 .withMirroredPiece(PieceType.QUEEN, List.of(3), 0)
                 .withMirroredPiece(PieceType.KING, List.of(4), 0);
         return chessboard;
@@ -34,18 +33,42 @@ public class Chessboard implements Iterable<ChessPiece[]> {
         board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = chessPiece;
     }
 
+    private boolean isLocationOccupied(final int x, final int y) {
+        return board[y][x] == null ? false : true;
+    }
+
+    public boolean move(final String move, final Player player) {
+        if (move.matches("([a-h][1-8]-[a-h][1-8])")) {
+            String[] piecemoves = move.split("-");
+            String currentPosCoord = piecemoves[0];
+            String targetPosCord = piecemoves[1];
+            Coordinates currentPos = new Coordinates(currentPosCoord);
+            Coordinates targetPos = new Coordinates(targetPosCord);
+            ChessPiece piece = getPiece(new Coordinates(currentPosCoord));
+            if (!isLocationOccupied(targetPos.getX(), targetPos.getY()) && piece != null) {
+                if (piece.move(this, targetPos)) {
+                    board[targetPos.getX()][targetPos.getY()] = piece;
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
     /**
      * Helper method to initialize chessboard with {@link ChessPieceStub}.
      * Basically mirrors all added pieces for both players.
-     * When all pieces has been implemented, this should be replaced with the proper implementations.
+     * When all pieces has been implemented, this should be replaced with the proper
+     * implementations.
      *
-     * @param pieceType pieceType
+     * @param pieceType    pieceType
      * @param xCoordinates xCoordinates
-     * @param yCoordinate yCoordinateOffset
+     * @param yCoordinate  yCoordinateOffset
      * @return itself, like a builder pattern
      */
-    private Chessboard withMirroredPiece(final PieceType pieceType,
-                                         final List<Integer> xCoordinates, final int yCoordinate) {
+    private Chessboard withMirroredPiece(final PieceType pieceType, final List<Integer> xCoordinates,
+            final int yCoordinate) {
         xCoordinates.forEach(xCoordinate -> {
             addPiece(new ChessPieceStub(pieceType, Player.BLACK, new Coordinates(xCoordinate, yCoordinate)));
             addPiece(new ChessPieceStub(pieceType, Player.WHITE, new Coordinates(xCoordinate, 7 - yCoordinate)));

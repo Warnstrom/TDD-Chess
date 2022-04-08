@@ -12,6 +12,7 @@ public abstract class ChessPiece {
     protected final PieceType pieceType;
 
     protected Coordinates location;
+    protected boolean pieceHasMoved;;
 
     public ChessPiece(PieceType pieceType, final Player player,
             final Coordinates location) {
@@ -47,6 +48,8 @@ public abstract class ChessPiece {
      */
     public abstract boolean canMove(final Chessboard chessboard, final Coordinates destination);
 
+    public abstract boolean move(final Chessboard chessboard, final Coordinates destination);
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -66,4 +69,5 @@ public abstract class ChessPiece {
     public String toString() {
         return getPlayer().name() + " " + getClass().getSimpleName();
     }
+
 }

@@ -4,12 +4,12 @@ public class Game {
 
     Chessboard board = Chessboard.startingBoard();
 
-    //Feel free to delete this stuff. Just for initial testing.
+    // Feel free to delete this stuff. Just for initial testing.
     boolean isNewGame = true;
+    int playerTurn = 0;
 
     public Player getPlayerToMove() {
-        //TODO this should reflect the current state.
-        return Player.WHITE;
+        return playerTurn % 2 == 0 ? Player.WHITE : Player.BLACK;
     }
 
     public Chessboard getBoard() {
@@ -17,8 +17,8 @@ public class Game {
     }
 
     public String getLastMoveResult() {
-        //TODO this should be used to show the player what happened
-        //Illegal move, correct move, e2 moved to e4 etc.
+        // TODO this should be used to show the player what happened
+        // Illegal move, correct move, e2 moved to e4 etc.
         if (isNewGame) {
             return "Game hasn't begun";
         }
@@ -26,7 +26,7 @@ public class Game {
     }
 
     public void move(String move) {
-        //TODO this should trigger your move logic.
+        board.move(move, getPlayerToMove());
         isNewGame = false;
         System.out.println("Player tried to perform move: " + move);
     }
