@@ -5,7 +5,6 @@ import ax.ha.tdd.chess.engine.Coordinates;
 import ax.ha.tdd.chess.engine.Player;
 import ax.ha.tdd.chess.engine.pieces.ChessPiece;
 import ax.ha.tdd.chess.engine.pieces.Pawn;
-import ax.ha.tdd.chess.engine.pieces.PieceType;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,12 +22,12 @@ public class PawnTest {
     @BeforeEach
     void initializeBoard() {
         gameboard = new Chessboard();
-        blackPawn_1 = new Pawn(PieceType.PAWN, Player.BLACK, new Coordinates("d7"));
-        blackPawn_2 = new Pawn(PieceType.PAWN, Player.BLACK, new Coordinates("d3"));
-        whitePawn_1 = new Pawn(PieceType.PAWN, Player.WHITE, new Coordinates("c2"));
-        whitePawn_2 = new Pawn(PieceType.PAWN, Player.WHITE, new Coordinates("a2"));
-        whitePawn_3 = new Pawn(PieceType.PAWN, Player.WHITE, new Coordinates("g2"));
-        whitePawn_4 = new Pawn(PieceType.PAWN, Player.WHITE, new Coordinates("c6"));
+        blackPawn_1 = new Pawn(Player.BLACK, new Coordinates("d7"));
+        blackPawn_2 = new Pawn(Player.BLACK, new Coordinates("d3"));
+        whitePawn_1 = new Pawn(Player.WHITE, new Coordinates("c2"));
+        whitePawn_2 = new Pawn(Player.WHITE, new Coordinates("a2"));
+        whitePawn_3 = new Pawn(Player.WHITE, new Coordinates("g2"));
+        whitePawn_4 = new Pawn(Player.WHITE, new Coordinates("c6"));
         gameboard.addPiece(whitePawn_1);
         gameboard.addPiece(whitePawn_2);
         gameboard.addPiece(whitePawn_3);
