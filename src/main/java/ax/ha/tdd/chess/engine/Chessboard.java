@@ -53,7 +53,12 @@ public class Chessboard implements Iterable<ChessPiece[]> {
             Coordinates targetPos = new Coordinates(targetPosCord);
             ChessPiece targetPiece = getPiece(new Coordinates(targetPosCord));
             ChessPiece currentPiece = getPiece(new Coordinates(currentPosCoord));
-            if (targetPiece == null) {
+            System.out.println(targetPos);
+            System.out.println(new Coordinates(currentPosCoord));
+            if (targetPiece != null && targetPiece.getPlayer() != player) {
+                removePiece(targetPiece);
+                currentPiece.move(this, targetPos);
+            } else if (targetPiece == null) {
                 currentPiece.move(this, targetPos);
             }
             return false;
@@ -61,6 +66,8 @@ public class Chessboard implements Iterable<ChessPiece[]> {
         throw new InvalidMovementException("Movement was outside the board");
     }
 
+    // targetPiece.getPlayer() != currentPiece.getPlayer() &&
+    // !targetPiece.getPieceType().equals(PieceType.KING)
     /**
      * Helper method to initialize chessboard with {@link ChessPieceStub}.
      * Basically mirrors all added pieces for both players.

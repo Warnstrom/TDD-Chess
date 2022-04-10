@@ -16,6 +16,7 @@ public class PawnTest {
     private Chessboard gameboard;
     private Pawn blackPawn_1 = null;
     private Pawn blackPawn_2 = null;
+    private Pawn blackPawn_3 = null;
     private Pawn whitePawn_1 = null;
     private Pawn whitePawn_2 = null;
     private Pawn whitePawn_3 = null;
@@ -23,8 +24,9 @@ public class PawnTest {
     @BeforeEach
     void initializeBoard() {
         gameboard = new Chessboard();
-        blackPawn_1 = new Pawn(Player.BLACK, new Coordinates("d7"));
+        blackPawn_1 = new Pawn(Player.BLACK, new Coordinates("f3"));
         blackPawn_2 = new Pawn(Player.BLACK, new Coordinates("d3"));
+        blackPawn_3 = new Pawn(Player.BLACK, new Coordinates("f3"));
         whitePawn_1 = new Pawn(Player.WHITE, new Coordinates("c2"));
         whitePawn_2 = new Pawn(Player.WHITE, new Coordinates("a2"));
         whitePawn_3 = new Pawn(Player.WHITE, new Coordinates("g2"));
@@ -83,5 +85,17 @@ public class PawnTest {
         gameboard.move("a2-a5", Player.WHITE);
         assertEquals(null, gameboard.getPiece(new Coordinates("a5")));
         assertEquals(whitePawn_2, gameboard.getPiece(new Coordinates("a2")));
+    }
+
+    @Test
+    void validCapture() throws InvalidMovementException {
+        assertEquals(blackPawn_2, gameboard.getPiece(new Coordinates("d3")));
+        gameboard.move("c2-d3", Player.WHITE);
+        assertEquals(null, gameboard.getPiece(new Coordinates("c2")));
+        assertEquals(whitePawn_1, gameboard.getPiece(new Coordinates("d3")));
+        assertEquals(blackPawn_3, gameboard.getPiece(new Coordinates("f3")));
+        gameboard.move("g2-f3", Player.WHITE);
+        assertEquals(null, gameboard.getPiece(new Coordinates("g2")));
+        assertEquals(whitePawn_3, gameboard.getPiece(new Coordinates("f3")));
     }
 }

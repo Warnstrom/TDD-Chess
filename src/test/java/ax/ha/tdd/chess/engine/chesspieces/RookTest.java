@@ -2,10 +2,9 @@ package ax.ha.tdd.chess.engine.chesspieces;
 
 import ax.ha.tdd.chess.engine.Chessboard;
 import ax.ha.tdd.chess.engine.Coordinates;
+import ax.ha.tdd.chess.engine.InvalidMovementException;
 import ax.ha.tdd.chess.engine.Player;
-import ax.ha.tdd.chess.engine.pieces.ChessPiece;
 import ax.ha.tdd.chess.engine.pieces.Rook;
-import ax.ha.tdd.chess.engine.pieces.PieceType;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +31,7 @@ public class RookTest {
     }
 
     @Test
-    void moveLegallyForwardAndBackwards() {
+    void moveLegallyForwardAndBackwards() throws InvalidMovementException {
         gameboard.move("h1-h8", Player.WHITE);
         assertEquals(null, gameboard.getPiece(new Coordinates("h1")));
         assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("h8")));
@@ -42,7 +41,7 @@ public class RookTest {
     }
 
     @Test
-    void moveLegallyLeftAndRight() {
+    void moveLegallyLeftAndRight() throws InvalidMovementException {
         gameboard.move("h1-a8", Player.WHITE);
         assertEquals(null, gameboard.getPiece(new Coordinates("h1")));
         assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("a8")));
@@ -52,7 +51,7 @@ public class RookTest {
     }
 
     @Test
-    void moveIllegallyOutsideXYAxis() {
+    void moveIllegallyOutsideXYAxis() throws InvalidMovementException {
         gameboard.move("h1-f4", Player.WHITE);
         assertEquals(null, gameboard.getPiece(new Coordinates("h1")));
         assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("f4")));
