@@ -35,7 +35,7 @@ public class KnightTest {
     }
     
     @Test
-    void moveLegally(String validLocationsForE4) {
+    void moveLegally() {
         gameboard.move("b1-c3",Player.WHITE);
         assertEquals(null, gameboard.getPiece(new Coordinates("b1")));
         assertEquals(whiteKnight_1, gameboard.getPiece(new Coordinates("c3")));
