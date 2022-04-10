@@ -62,7 +62,7 @@ public class BishopTest {
 
     @Test
     void moveBishopIllegally() {
-        gameboard.move("c1-g8", Player.WHITE);
+        gameboard.move("c1-e8", Player.WHITE);
         assertEquals(whiteBishop_1, gameboard.getPiece(new Coordinates("c1")));
         assertEquals(null, gameboard.getPiece(new Coordinates("g8")));
     }
