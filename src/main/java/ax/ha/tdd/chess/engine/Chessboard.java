@@ -33,27 +33,32 @@ public class Chessboard implements Iterable<ChessPiece[]> {
         board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = chessPiece;
     }
 
-    private boolean isLocationOccupied(final int x, final int y) {
-        return board[y][x] == null ? false : true;
+    public void removePiece(final ChessPiece chessPiece) {
+        board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = null;
     }
 
-    public boolean move(final String move, final Player player) {
+    /*
+     * private boolean isLocationOccupied(final ChessPiece chessPiece) {
+     * return
+     * board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] ==
+     * null ? true : false;
+     * }
+     */
+
+    public boolean move(final String move, final Player player) throws InvalidMovementException {
         if (move.matches("([a-h][1-8]-[a-h][1-8])")) {
             String[] piecemoves = move.split("-");
             String currentPosCoord = piecemoves[0];
             String targetPosCord = piecemoves[1];
-            Coordinates currentPos = new Coordinates(currentPosCoord);
             Coordinates targetPos = new Coordinates(targetPosCord);
-            ChessPiece piece = getPiece(new Coordinates(currentPosCoord));
-            if (!isLocationOccupied(targetPos.getX(), targetPos.getY()) && piece != null) {
-                if (piece.move(this, targetPos)) {
-                    board[targetPos.getX()][targetPos.getY()] = piece;
-                    return true;
-                }
+            ChessPiece targetPiece = getPiece(new Coordinates(targetPosCord));
+            ChessPiece currentPiece = getPiece(new Coordinates(currentPosCoord));
+            if (targetPiece == null) {
+                currentPiece.move(this, targetPos);
             }
             return false;
         }
-        return false;
+        throw new InvalidMovementException("Movement was outside the board");
     }
 
     /**

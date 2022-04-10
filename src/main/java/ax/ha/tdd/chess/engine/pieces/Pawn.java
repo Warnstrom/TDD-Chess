@@ -13,7 +13,9 @@ public class Pawn extends ChessPiece {
     public boolean move(Chessboard board, Coordinates destination) {
         if (!canMove(board, destination))
             return false;
+        board.removePiece(this);
         location = destination;
+        board.addPiece(this);
         return true;
     }
 
@@ -28,14 +30,30 @@ public class Pawn extends ChessPiece {
         final int targetPosY = destination.getY();
         final int curretPosX = location.getX();
         final int curretPosY = location.getY();
-        if (!pieceHasMoved && chessboard.getPiece(destination) == null || targetPosX == curretPosX
-                || targetPosY - curretPosY == 0
-                || targetPosY - curretPosY == 1) {
+        if (player.equals(Player.WHITE) && !pieceHasMoved && curretPosX == targetPosX && (targetPosY - curretPosY) <= 2
+                && targetPosY > curretPosY) {
             return true;
-        } else if (pieceHasMoved && chessboard.getPiece(destination) == null && targetPosY - curretPosY == 0
-                || targetPosX == curretPosX) {
+        } else if (player.equals(Player.WHITE) && curretPosX == targetPosX && (targetPosY - curretPosY) == 1
+                && targetPosY > curretPosY) {
             return true;
+        } else if (player.equals(Player.BLACK)  && !pieceHasMoved && curretPosX == targetPosX && Math.abs((targetPosY - curretPosY)) <= 2
+                && targetPosY < curretPosY) {
+        } else if (player.equals(Player.BLACK) && curretPosX == targetPosX && (targetPosY - curretPosY) == 1
+                && targetPosY < curretPosY) {
         }
         return false;
     }
 }
+/**
+ * 
+ * if (!pieceHasMoved && targetPosX == curretPosX
+ * && targetPosY - curretPosY == 0
+ * || targetPosY - curretPosY == 1) {
+ * return true;
+ * } else if (pieceHasMoved && targetPosY - curretPosY == 0
+ * || targetPosX == curretPosX) {
+ * return true;
+ * }
+ * return false;
+ * }
+ */

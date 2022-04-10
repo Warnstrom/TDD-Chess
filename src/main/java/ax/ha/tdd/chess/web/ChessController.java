@@ -1,6 +1,8 @@
 package ax.ha.tdd.chess.web;
 
 import ax.ha.tdd.chess.engine.Game;
+import ax.ha.tdd.chess.engine.InvalidMovementException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,7 @@ public class ChessController {
     Game game = new Game();
 
     @GetMapping({"/", "/chess"})
-    public String chess(Model model, @RequestParam(name = "move", required = false) String move) {
+    public String chess(Model model, @RequestParam(name = "move", required = false) String move) throws InvalidMovementException {
         if (move != null && !move.isEmpty()) {
             game.move(move);
         }

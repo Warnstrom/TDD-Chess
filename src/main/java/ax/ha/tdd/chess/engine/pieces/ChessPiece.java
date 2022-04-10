@@ -12,7 +12,7 @@ public abstract class ChessPiece {
     protected final PieceType pieceType;
 
     protected Coordinates location;
-    protected boolean pieceHasMoved;;
+    protected boolean pieceHasMoved;
 
     public ChessPiece(PieceType pieceType, final Player player,
             final Coordinates location) {

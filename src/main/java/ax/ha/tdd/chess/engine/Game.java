@@ -25,7 +25,7 @@ public class Game {
         return "Last move was successful (default reply, change this)";
     }
 
-    public void move(String move) {
+    public void move(String move) throws InvalidMovementException {
         board.move(move, getPlayerToMove());
         isNewGame = false;
         System.out.println("Player tried to perform move: " + move);
