@@ -31,7 +31,12 @@ public class Pawn extends ChessPiece {
         final int targetPosY = destination.getY();
         final int curretPosX = location.getX();
         final int curretPosY = location.getY();
-        System.out.println("fhjwsidufgwaEUYFGAWEUYFGAWUYEFG");
+        System.out.println(curretPosY - 1 == targetPosY);
+        System.out.println((curretPosY - targetPosY) == 1);
+        System.out.println((targetPosY < curretPosY));
+        System.out.println(player.equals(Player.WHITE) && ((curretPosX - 1 == targetPosX) || (curretPosX + 1 == targetPosX))
+        && (curretPosY - 1 == targetPosY) && (curretPosY - targetPosY) == 1 && targetPosY < curretPosY);
+        System.out.println("Couldn't move to new location");
         if (player.equals(Player.WHITE) && !pieceHasMoved && curretPosX == targetPosX && (curretPosY - targetPosY) <= 2
                 && targetPosY < curretPosY) {
                     System.out.println("Test 1");
@@ -40,7 +45,7 @@ public class Pawn extends ChessPiece {
                 && targetPosY < curretPosY) {
                     System.out.println("Test 2");
                     return true;
-        } else if (player.equals(Player.WHITE) && (curretPosX - 1 == targetPosX) || (curretPosX + 1 == targetPosX)
+        } else if (player.equals(Player.WHITE) && ((curretPosX - 1 == targetPosX) || (curretPosX + 1 == targetPosX))
                 && (curretPosY - 1 == targetPosY) && (curretPosY - targetPosY) == 1 && targetPosY < curretPosY) {
                     System.out.println("Test 3");
                     return true;

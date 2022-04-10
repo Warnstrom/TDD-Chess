@@ -77,8 +77,8 @@ public class PawnTest {
         assertEquals(null, gameboard.getPiece(new Coordinates("d2")));
         assertEquals(whitePawn_1, gameboard.getPiece(new Coordinates("c2")));
         gameboard.move("c2-c1", Player.WHITE);
-        assertEquals(whitePawn_1, gameboard.getPiece(new Coordinates("c1")));
-        assertEquals(null, gameboard.getPiece(new Coordinates("c2")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("c1")));
+        assertEquals(whitePawn_1, gameboard.getPiece(new Coordinates("c2")));
         gameboard.move("a2-b4", Player.WHITE);
         assertEquals(null, gameboard.getPiece(new Coordinates("b4")));
         assertEquals(whitePawn_2, gameboard.getPiece(new Coordinates("a2")));
