@@ -16,47 +16,74 @@ public class RookTest {
     private Rook blackRook_2 = null;
     private Rook whiteRook_1 = null;
     private Rook whiteRook_2 = null;
+    private Rook whiteRook_3 = null;
 
     @BeforeEach
     void initializeBoard() {
         gameboard = new Chessboard();
         blackRook_1 = new Rook(Player.BLACK, new Coordinates("a8"));
-        blackRook_2 = new Rook(Player.BLACK, new Coordinates("h8"));
-        whiteRook_1 = new Rook(Player.WHITE, new Coordinates("h1"));
+        blackRook_2 = new Rook(Player.BLACK, new Coordinates("e8"));
+        whiteRook_1 = new Rook(Player.WHITE, new Coordinates("e2"));
         whiteRook_2 = new Rook(Player.WHITE, new Coordinates("a1"));
+        whiteRook_3 = new Rook(Player.WHITE, new Coordinates("h1"));
         gameboard.addPiece(blackRook_1);
         gameboard.addPiece(blackRook_2);
         gameboard.addPiece(whiteRook_1);
         gameboard.addPiece(whiteRook_2);
+        gameboard.addPiece(whiteRook_3);
     }
 
     @Test
     void moveLegallyForwardAndBackwards() throws InvalidMovementException {
         gameboard.move("h1-h8", Player.WHITE);
         assertEquals(null, gameboard.getPiece(new Coordinates("h1")));
-        assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("h8")));
+        assertEquals(whiteRook_3, gameboard.getPiece(new Coordinates("h8")));
         gameboard.move("h8-h1", Player.WHITE);
         assertEquals(null, gameboard.getPiece(new Coordinates("h8")));
-        assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("f1")));
+        assertEquals(whiteRook_3, gameboard.getPiece(new Coordinates("h1")));
+        gameboard.move("h1-h4", Player.WHITE);
+        assertEquals(null, gameboard.getPiece(new Coordinates("h1")));
+        assertEquals(whiteRook_3, gameboard.getPiece(new Coordinates("h4")));
     }
 
     @Test
     void moveLegallyLeftAndRight() throws InvalidMovementException {
-        gameboard.move("h1-a8", Player.WHITE);
-        assertEquals(null, gameboard.getPiece(new Coordinates("h1")));
-        assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("a8")));
-        gameboard.move("h4-a4", Player.WHITE);
-        assertEquals(null, gameboard.getPiece(new Coordinates("h4")));
-        assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("a4")));
+        gameboard.move("e2-a2", Player.WHITE);
+        assertEquals(null, gameboard.getPiece(new Coordinates("h2")));
+        assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("a2")));
+        gameboard.move("a1-f1", Player.WHITE);
+        assertEquals(null, gameboard.getPiece(new Coordinates("a1")));
+        assertEquals(whiteRook_2, gameboard.getPiece(new Coordinates("f1")));
     }
 
     @Test
     void moveIllegallyOutsideXYAxis() throws InvalidMovementException {
-        gameboard.move("h1-f4", Player.WHITE);
-        assertEquals(null, gameboard.getPiece(new Coordinates("h1")));
-        assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("f4")));
-        gameboard.move("h4-d7", Player.WHITE);
+        gameboard.move("e2-f4", Player.WHITE);
+        assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("e2")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("f4")));
+        gameboard.move("a8-d7", Player.WHITE);
+        assertEquals(blackRook_1, gameboard.getPiece(new Coordinates("a8")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("d7")));
+    }
+
+    @Test
+    void validCollisionMoves() throws InvalidMovementException {
+        gameboard.move("e2-h4", Player.WHITE);
+        assertEquals(whiteRook_3, gameboard.getPiece(new Coordinates("h1")));
+        assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("e2")));
         assertEquals(null, gameboard.getPiece(new Coordinates("h4")));
-        assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("d7")));
+    }
+
+    @Test
+    void rookCapture() throws InvalidMovementException {
+        assertEquals(blackRook_1, gameboard.getPiece(new Coordinates("a8")));
+        gameboard.move("a1-a8", Player.WHITE);
+        assertEquals(whiteRook_2, gameboard.getPiece(new Coordinates("a8")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("a1")));
+
+        assertEquals(blackRook_2, gameboard.getPiece(new Coordinates("e8")));
+        gameboard.move("e2-e8", Player.WHITE);
+        assertEquals(whiteRook_1, gameboard.getPiece(new Coordinates("e8")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("e2")));
     }
 }
