@@ -21,6 +21,8 @@ public class BishopTest {
     private Chessboard gameboard;
     private Bishop blackBishop_1 = null;
     private Bishop blackBishop_2 = null;
+    private Bishop blackBishop_3 = null;
+    private Bishop blackBishop_4 = null;
     private Bishop whiteBishop_1 = null;
     private Bishop whiteBishop_2 = null;
     @BeforeEach
@@ -28,10 +30,14 @@ public class BishopTest {
         gameboard = new Chessboard();
         blackBishop_1 = new Bishop(Player.BLACK, new Coordinates("c8"));
         blackBishop_2 = new Bishop(Player.BLACK, new Coordinates("f8"));
+        blackBishop_3 = new Bishop(Player.BLACK, new Coordinates("f4"));
+        blackBishop_4 = new Bishop(Player.BLACK, new Coordinates("a6"));
         whiteBishop_1 = new Bishop(Player.WHITE, new Coordinates("c1"));
         whiteBishop_2 = new Bishop(Player.WHITE, new Coordinates("f1"));
         gameboard.addPiece(blackBishop_1);
         gameboard.addPiece(blackBishop_2);
+        gameboard.addPiece(blackBishop_3);
+        gameboard.addPiece(blackBishop_4);
         gameboard.addPiece(whiteBishop_1);
         gameboard.addPiece(whiteBishop_2);
     }
@@ -71,5 +77,17 @@ public class BishopTest {
         gameboard.move("c1-f5", Player.WHITE);
         assertEquals(whiteBishop_1, gameboard.getPiece(new Coordinates("c1")));
         assertEquals(null, gameboard.getPiece(new Coordinates("f5")));
+    }
+
+    @Test
+    void bishopCapture() throws InvalidMovementException {
+        assertEquals(blackBishop_3, gameboard.getPiece(new Coordinates("f4")));
+        gameboard.move("c1-f4", Player.WHITE);
+        assertEquals(null, gameboard.getPiece(new Coordinates("c1")));
+        assertEquals(whiteBishop_1, gameboard.getPiece(new Coordinates("f4")));
+        assertEquals(blackBishop_4, gameboard.getPiece(new Coordinates("a6")));
+        gameboard.move("f1-a6", Player.WHITE);
+        assertEquals(null, gameboard.getPiece(new Coordinates("f1")));
+        assertEquals(whiteBishop_2, gameboard.getPiece(new Coordinates("a6")));
     }
 }
