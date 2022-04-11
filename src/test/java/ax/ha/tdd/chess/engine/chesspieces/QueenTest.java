@@ -2,10 +2,9 @@ package ax.ha.tdd.chess.engine.chesspieces;
 
 import ax.ha.tdd.chess.engine.Chessboard;
 import ax.ha.tdd.chess.engine.Coordinates;
+import ax.ha.tdd.chess.engine.InvalidMovementException;
 import ax.ha.tdd.chess.engine.Player;
-import ax.ha.tdd.chess.engine.pieces.ChessPiece;
 import ax.ha.tdd.chess.engine.pieces.Queen;
-import ax.ha.tdd.chess.engine.pieces.PieceType;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,7 @@ public class QueenTest {
     }
 
     @Test
-    void validMovementLikeRook() {
+    void validMovementLikeRook() throws InvalidMovementException {
         gameboard.move("e8-e4", Player.BLACK);
         assertEquals(null, gameboard.getPiece(new Coordinates("e8")));
         assertEquals(blackQueen_1, gameboard.getPiece(new Coordinates("e4")));
@@ -36,20 +35,24 @@ public class QueenTest {
     }
 
     @Test
-    void validMovementLikeBishop() {
+    void validMovementLikeBishop() throws InvalidMovementException {
         gameboard.move("e8-a4", Player.BLACK);
         assertEquals(null, gameboard.getPiece(new Coordinates("e8")));
         assertEquals(blackQueen_1, gameboard.getPiece(new Coordinates("a4")));
     }
 
     @Test
-    void moveIllegally() {
-        gameboard.move("e8-g6", Player.BLACK);
+    void moveIllegally() throws InvalidMovementException {
+        gameboard.move("e8-g7", Player.BLACK);
         gameboard.move("e8-d6", Player.BLACK);
         gameboard.move("e8-f2", Player.BLACK);
         gameboard.move("e8-b7", Player.BLACK);
         gameboard.move("e8-f5", Player.BLACK);
-        assertEquals(null, gameboard.getPiece(new Coordinates("e8")));
-        assertEquals(blackQueen_1, gameboard.getPiece(new Coordinates("a4")));
+        assertEquals(blackQueen_1, gameboard.getPiece(new Coordinates("e8")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("g7")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("d6")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("f2")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("b7")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("f5")));
     }
 }
