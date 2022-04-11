@@ -2,10 +2,10 @@ package ax.ha.tdd.chess.engine.chesspieces;
 
 import ax.ha.tdd.chess.engine.Chessboard;
 import ax.ha.tdd.chess.engine.Coordinates;
+import ax.ha.tdd.chess.engine.InvalidMovementException;
 import ax.ha.tdd.chess.engine.Player;
 import ax.ha.tdd.chess.engine.pieces.ChessPiece;
 import ax.ha.tdd.chess.engine.pieces.Bishop;
-import ax.ha.tdd.chess.engine.pieces.PieceType;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ public class BishopTest {
     }
 
     @Test
-    void moveLegally() {
+    void moveLegally() throws InvalidMovementException {
         gameboard.move("c1-f4", Player.WHITE);
         gameboard.move("f1-h3", Player.WHITE);
         assertEquals(null, gameboard.getPiece(new Coordinates("c1")));
@@ -61,9 +61,15 @@ public class BishopTest {
     }
 
     @Test
-    void moveIllegally() {
+    void moveIllegally() throws InvalidMovementException {
         gameboard.move("c1-e8", Player.WHITE);
         assertEquals(whiteBishop_1, gameboard.getPiece(new Coordinates("c1")));
         assertEquals(null, gameboard.getPiece(new Coordinates("g8")));
+        gameboard.move("c1-c8", Player.WHITE);
+        assertEquals(whiteBishop_1, gameboard.getPiece(new Coordinates("c1")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("c8")));
+        gameboard.move("c1-f5", Player.WHITE);
+        assertEquals(whiteBishop_1, gameboard.getPiece(new Coordinates("c1")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("f5")));
     }
 }

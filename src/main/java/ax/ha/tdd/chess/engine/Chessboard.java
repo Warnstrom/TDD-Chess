@@ -55,7 +55,7 @@ public class Chessboard implements Iterable<ChessPiece[]> {
             ChessPiece currentPiece = getPiece(new Coordinates(currentPosCoord));
             System.out.println(targetPos);
             System.out.println(new Coordinates(currentPosCoord));
-            if (targetPiece != null && targetPiece.getPlayer() != player) {
+            if (targetPiece != null && targetPiece.getPlayer() != player && targetPiece.getPieceType() != PieceType.KING) {
                 removePiece(targetPiece);
                 currentPiece.move(this, targetPos);
             } else if (targetPiece == null) {
