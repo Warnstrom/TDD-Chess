@@ -7,7 +7,7 @@ import ax.ha.tdd.chess.engine.Player;
 public class Knight extends ChessPiece {
 
     public Knight(Player player, Coordinates location) {
-        super(PieceType.PAWN, player, location);
+        super(PieceType.KNIGHT, player, location);
     }
 
     public boolean move(Chessboard board, Coordinates destination) {

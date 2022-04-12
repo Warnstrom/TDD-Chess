@@ -7,7 +7,7 @@ import ax.ha.tdd.chess.engine.Player;
 public class Bishop extends ChessPiece {
 
     public Bishop(Player player, Coordinates location) {
-        super(PieceType.PAWN, player, location);
+        super(PieceType.BISHOP, player, location);
     }
 
     public boolean move(Chessboard board, Coordinates destination) {
@@ -26,6 +26,7 @@ public class Bishop extends ChessPiece {
 
     @Override
     public boolean canMove(Chessboard chessboard, Coordinates destination) {
+        System.out.println("Bishop called");
         final int targetPosX = destination.getX();
         final int targetPosY = destination.getY();
         final int curretPosX = location.getX();
@@ -36,6 +37,7 @@ public class Bishop extends ChessPiece {
                 return false;
             }
         }
+
         return (chessboard.getPiece(destination) == null || !chessboard.getPiece(destination).getPlayer().equals(player))
                 && Math.abs(curretPosX - targetPosX) == Math.abs(curretPosY - targetPosY);
     }

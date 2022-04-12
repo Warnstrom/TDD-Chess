@@ -7,7 +7,7 @@ import ax.ha.tdd.chess.engine.Player;
 public class Rook extends ChessPiece {
 
     public Rook(Player player, Coordinates location) {
-        super(PieceType.PAWN, player, location);
+        super(PieceType.ROOK, player, location);
     }
 
     public boolean move(Chessboard board, Coordinates destination) {
@@ -19,12 +19,6 @@ public class Rook extends ChessPiece {
         return true;
     }
 
-    private boolean validLocation(Chessboard board, final int x, final int y) {
-        //System.out.println(board.getPiece(new Coordinates(x, y)) == null);
-        //System.out.println(board.getPiece(new Coordinates(x, y)));
-        return board.getPiece(new Coordinates(x, y)) == null;
-    }
-
     @Override
     public String getSymbol() {
         return pieceType.getSymbol();
@@ -32,40 +26,29 @@ public class Rook extends ChessPiece {
 
     @Override
     public boolean canMove(Chessboard chessboard, Coordinates destination) {
+        System.out.println("Rook called");
+        int differenceBetweenTarget = 0;
         final int targetPosX = destination.getX();
         final int targetPosY = destination.getY();
-        final int curretPosX = location.getX();
-        final int curretPosY = location.getY();
-        if (curretPosY < targetPosY && curretPosX == targetPosX) {
-            System.out.println("Test 1");
-            for (int i = curretPosY; i <= targetPosY; i++) {
-                if (validLocation(chessboard, curretPosX, i)) {
-                    return true;
-                }
-            }
-        } else if (targetPosY < curretPosY && curretPosX == targetPosX) {
-            System.out.println("Test 2");
-            for (int i = curretPosY; i >= targetPosY; i--) {
-                System.out.println(validLocation(chessboard, i, curretPosY));
-                if (validLocation(chessboard, curretPosX, i)) {
-                    return true;
-                }
-            }
-        } else if (targetPosX < curretPosX && curretPosY == targetPosY) {
-            System.out.println("Test 3");
-            for (int i = curretPosX; i >= targetPosX; i--) {
-                if (validLocation(chessboard, i, curretPosY)) {
-                    return true;
-                }
-            }
-        } else if (curretPosX < targetPosX && curretPosY == targetPosY) {
-            System.out.println("Test 4");
-            for (int i = curretPosX; i <= targetPosX; i++) {
-                if (validLocation(chessboard, i, curretPosY)) {
-                    return true;
-                }
+        final int currentPosX = location.getX();
+        final int currentPosY = location.getY();
+        if (Integer.compare(0, currentPosX - targetPosX) != 0) {
+            differenceBetweenTarget = Math.abs(currentPosX - targetPosX);
+        } else if (Integer.compare(0, currentPosY - targetPosY) != 0) {
+            differenceBetweenTarget = Math.abs(currentPosY - targetPosY);
+        }
+        for (int i = 1; i < differenceBetweenTarget; i++) {
+            if (Integer.compare(0, currentPosX - targetPosX) != 0
+                    && chessboard.getPiece(new Coordinates(
+                            currentPosX + i * Integer.compare(0, currentPosX - targetPosX), currentPosY)) != null) {
+                return false;
+            } else if (Integer.compare(0, currentPosY - targetPosY) != 0
+                    && chessboard.getPiece(new Coordinates(currentPosX,
+                            currentPosY + i * Integer.compare(0, currentPosY - targetPosY))) != null) {
+                return false;
             }
         }
-        return false;
+        return (currentPosX == targetPosX || currentPosY == targetPosY);
     }
+
 }

@@ -5,10 +5,8 @@ import ax.ha.tdd.chess.engine.Coordinates;
 import ax.ha.tdd.chess.engine.Player;
 
 public class Queen extends ChessPiece {
-    final Bishop BISHOP_MOVE = new Bishop(this.player, this.location);
-    final Rook ROOK_MOVE = new Rook(this.player, this.location);
     public Queen(Player player, Coordinates location) {
-        super(PieceType.PAWN, player, location);
+        super(PieceType.QUEEN, player, location);
     }
 
     public boolean move(Chessboard board, Coordinates destination) {
@@ -27,6 +25,14 @@ public class Queen extends ChessPiece {
 
     @Override
     public boolean canMove(Chessboard chessboard, Coordinates destination) {
-        return (BISHOP_MOVE.canMove(chessboard, destination) || ROOK_MOVE.canMove(chessboard, destination));
+        final int targetPosX = destination.getX();
+        final int targetPosY = destination.getY();
+        final int curretPosX = location.getX();
+        final int curretPosY = location.getY();
+        if (targetPosX == curretPosX || targetPosY == curretPosY) {
+            return new Rook(player, location).canMove(chessboard, destination);
+        } else {
+            return new Bishop(player, location).canMove(chessboard, destination);
+        }
     }
 }
