@@ -41,6 +41,7 @@ public class Rook extends ChessPiece {
             if (Integer.compare(0, currentPosX - targetPosX) != 0
                     && chessboard.getPiece(new Coordinates(
                             currentPosX + i * Integer.compare(0, currentPosX - targetPosX), currentPosY)) != null) {
+
                 return false;
             } else if (Integer.compare(0, currentPosY - targetPosY) != 0
                     && chessboard.getPiece(new Coordinates(currentPosX,

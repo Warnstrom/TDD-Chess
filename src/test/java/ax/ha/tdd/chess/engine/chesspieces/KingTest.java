@@ -5,6 +5,7 @@ import ax.ha.tdd.chess.engine.Coordinates;
 import ax.ha.tdd.chess.engine.InvalidMovementException;
 import ax.ha.tdd.chess.engine.Player;
 import ax.ha.tdd.chess.engine.pieces.King;
+import ax.ha.tdd.chess.engine.pieces.Rook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,14 +16,17 @@ public class KingTest {
     private Chessboard gameboard;
     private King blackKing_1 = null;
     private King whiteKing_1 = null;
+    private Rook blackRook_1 = null;
 
     @BeforeEach
     void initializeBoard() {
         gameboard = new Chessboard();
         blackKing_1 = new King(Player.BLACK, new Coordinates("d8"));
         whiteKing_1 = new King(Player.WHITE, new Coordinates("d1"));
+        blackRook_1 = new Rook(Player.BLACK, new Coordinates("g2"));
         gameboard.addPiece(blackKing_1);
         gameboard.addPiece(whiteKing_1);
+        gameboard.addPiece(blackRook_1);
     }
 
     @Test
@@ -61,5 +65,11 @@ public class KingTest {
         gameboard.move("d1-b2", Player.WHITE);
         assertEquals(null, gameboard.getPiece(new Coordinates("b2")));
         assertEquals(whiteKing_1, gameboard.getPiece(new Coordinates("d1")));
+    }
+    @Test
+    void moveToThreatenedLocation() throws InvalidMovementException {
+        gameboard.move("d1-d2", Player.WHITE);
+        assertEquals(whiteKing_1, gameboard.getPiece(new Coordinates("d1")));
+        assertEquals(null, gameboard.getPiece(new Coordinates("d2")));
     }
 }

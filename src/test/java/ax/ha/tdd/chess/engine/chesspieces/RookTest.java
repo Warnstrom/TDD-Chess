@@ -14,6 +14,7 @@ public class RookTest {
     private Chessboard gameboard;
     private Rook blackRook_1 = null;
     private Rook blackRook_2 = null;
+    private Rook blackRook_3 = null;
     private Rook whiteRook_1 = null;
     private Rook whiteRook_2 = null;
     private Rook whiteRook_3 = null;
@@ -23,11 +24,13 @@ public class RookTest {
         gameboard = new Chessboard();
         blackRook_1 = new Rook(Player.BLACK, new Coordinates("a8"));
         blackRook_2 = new Rook(Player.BLACK, new Coordinates("e8"));
+        blackRook_3 = new Rook(Player.BLACK, new Coordinates("g2"));
         whiteRook_1 = new Rook(Player.WHITE, new Coordinates("e2"));
         whiteRook_2 = new Rook(Player.WHITE, new Coordinates("a1"));
         whiteRook_3 = new Rook(Player.WHITE, new Coordinates("h1"));
         gameboard.addPiece(blackRook_1);
         gameboard.addPiece(blackRook_2);
+        gameboard.addPiece(blackRook_3);
         gameboard.addPiece(whiteRook_1);
         gameboard.addPiece(whiteRook_2);
         gameboard.addPiece(whiteRook_3);
@@ -54,6 +57,9 @@ public class RookTest {
         gameboard.move("a1-f1", Player.WHITE);
         assertEquals(null, gameboard.getPiece(new Coordinates("a1")));
         assertEquals(whiteRook_2, gameboard.getPiece(new Coordinates("f1")));
+        gameboard.move("g2-d2", Player.WHITE);
+        assertEquals(null, gameboard.getPiece(new Coordinates("g2")));
+        assertEquals(blackRook_3, gameboard.getPiece(new Coordinates("d2")));
     }
 
     @Test

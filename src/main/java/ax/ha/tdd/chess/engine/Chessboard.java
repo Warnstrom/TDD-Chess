@@ -15,7 +15,7 @@ public class Chessboard implements Iterable<ChessPiece[]> {
     // Feel free to change this however you like
     // [y][x]
     private final ChessPiece[][] board = new ChessPiece[8][8];
-    Map<Coordinates, ChessPiece> mapTest = new HashMap<Coordinates, ChessPiece>(); 
+    public Map<Coordinates, ChessPiece> activePieces = new HashMap<Coordinates, ChessPiece>(); 
 
     public static Chessboard startingBoard() {
         final Chessboard chessboard = new Chessboard();
@@ -33,12 +33,12 @@ public class Chessboard implements Iterable<ChessPiece[]> {
     }
 
     public void addPiece(final ChessPiece chessPiece) {
-        this.mapTest.put(new Coordinates(chessPiece.getLocation().getX(), chessPiece.getLocation().getY()), chessPiece);
+        this.activePieces.put(new Coordinates(chessPiece.getLocation().getX(), chessPiece.getLocation().getY()), chessPiece);
         board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = chessPiece;
     }
 
     public void removePiece(final ChessPiece chessPiece) {
-        this.mapTest.replace(new Coordinates(chessPiece.getLocation().getX(), chessPiece.getLocation().getY()), null);
+        this.activePieces.replace(new Coordinates(chessPiece.getLocation().getX(), chessPiece.getLocation().getY()), null);
         board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = null;
     }
 
