@@ -4,8 +4,10 @@ import ax.ha.tdd.chess.engine.pieces.ChessPiece;
 import ax.ha.tdd.chess.engine.pieces.ChessPieceStub;
 import ax.ha.tdd.chess.engine.pieces.PieceType;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class Chessboard implements Iterable<ChessPiece[]> {
     // This could just as easily be replaced with a List or Set,
@@ -13,6 +15,7 @@ public class Chessboard implements Iterable<ChessPiece[]> {
     // Feel free to change this however you like
     // [y][x]
     private final ChessPiece[][] board = new ChessPiece[8][8];
+    Map<Coordinates, ChessPiece> mapTest = new HashMap<Coordinates, ChessPiece>(); 
 
     public static Chessboard startingBoard() {
         final Chessboard chessboard = new Chessboard();
@@ -30,10 +33,12 @@ public class Chessboard implements Iterable<ChessPiece[]> {
     }
 
     public void addPiece(final ChessPiece chessPiece) {
+        this.mapTest.put(new Coordinates(chessPiece.getLocation().getX(), chessPiece.getLocation().getY()), chessPiece);
         board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = chessPiece;
     }
 
     public void removePiece(final ChessPiece chessPiece) {
+        this.mapTest.replace(new Coordinates(chessPiece.getLocation().getX(), chessPiece.getLocation().getY()), null);
         board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = null;
     }
 
@@ -47,6 +52,7 @@ public class Chessboard implements Iterable<ChessPiece[]> {
 
     public boolean move(final String move, final Player player) throws InvalidMovementException {
         if (move.matches("([a-h][1-8]-[a-h][1-8])")) {
+
             String[] piecemoves = move.split("-");
             String currentPosCoord = piecemoves[0];
             String targetPosCord = piecemoves[1];

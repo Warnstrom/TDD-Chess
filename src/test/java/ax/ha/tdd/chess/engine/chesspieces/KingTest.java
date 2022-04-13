@@ -2,10 +2,9 @@ package ax.ha.tdd.chess.engine.chesspieces;
 
 import ax.ha.tdd.chess.engine.Chessboard;
 import ax.ha.tdd.chess.engine.Coordinates;
+import ax.ha.tdd.chess.engine.InvalidMovementException;
 import ax.ha.tdd.chess.engine.Player;
-import ax.ha.tdd.chess.engine.pieces.ChessPiece;
 import ax.ha.tdd.chess.engine.pieces.King;
-import ax.ha.tdd.chess.engine.pieces.PieceType;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,7 @@ public class KingTest {
     }
 
     @Test
-    void moveLegally() {
+    void moveLegally() throws InvalidMovementException {
         gameboard.move("d8-d7", Player.BLACK);
         assertEquals(null, gameboard.getPiece(new Coordinates("d8")));
         assertEquals(blackKing_1, gameboard.getPiece(new Coordinates("d7")));
@@ -36,10 +35,26 @@ public class KingTest {
         assertEquals(null, gameboard.getPiece(new Coordinates("e6")));
         assertEquals(null, gameboard.getPiece(new Coordinates("d7")));
         assertEquals(blackKing_1, gameboard.getPiece(new Coordinates("f5")));
+        gameboard.move("f5-g4", Player.BLACK);
+        assertEquals(null, gameboard.getPiece(new Coordinates("f5")));
+        assertEquals(blackKing_1, gameboard.getPiece(new Coordinates("g4")));
+        gameboard.move("g4-f5", Player.BLACK);
+        gameboard.move("f5-e4", Player.BLACK);
+        assertEquals(null, gameboard.getPiece(new Coordinates("f5")));
+        assertEquals(blackKing_1, gameboard.getPiece(new Coordinates("e4")));
+        gameboard.move("e4-f5", Player.BLACK);
+        gameboard.move("f5-g6", Player.BLACK);
+        assertEquals(null, gameboard.getPiece(new Coordinates("f5")));
+        assertEquals(blackKing_1, gameboard.getPiece(new Coordinates("g6")));
+        gameboard.move("g6-f5", Player.BLACK);
+        gameboard.move("f5-e4", Player.BLACK);
+        assertEquals(null, gameboard.getPiece(new Coordinates("f5")));
+        assertEquals(blackKing_1, gameboard.getPiece(new Coordinates("e4")));
+        gameboard.move("e4-f5", Player.BLACK);
     }
 
     @Test
-    void moveIllegally() {
+    void moveIllegally() throws InvalidMovementException {
         gameboard.move("d8-d6", Player.BLACK);
         assertEquals(null, gameboard.getPiece(new Coordinates("d6")));
         assertEquals(blackKing_1, gameboard.getPiece(new Coordinates("d8")));
