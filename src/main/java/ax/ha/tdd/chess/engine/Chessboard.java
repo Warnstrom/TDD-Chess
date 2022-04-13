@@ -4,10 +4,9 @@ import ax.ha.tdd.chess.engine.pieces.ChessPiece;
 import ax.ha.tdd.chess.engine.pieces.ChessPieceStub;
 import ax.ha.tdd.chess.engine.pieces.PieceType;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class Chessboard implements Iterable<ChessPiece[]> {
     // This could just as easily be replaced with a List or Set,
@@ -15,7 +14,7 @@ public class Chessboard implements Iterable<ChessPiece[]> {
     // Feel free to change this however you like
     // [y][x]
     private final ChessPiece[][] board = new ChessPiece[8][8];
-    public Map<Coordinates, ChessPiece> activePieces = new HashMap<Coordinates, ChessPiece>(); 
+    public ArrayList<ChessPiece> activePieces = new ArrayList<ChessPiece>();
 
     public static Chessboard startingBoard() {
         final Chessboard chessboard = new Chessboard();
@@ -33,12 +32,12 @@ public class Chessboard implements Iterable<ChessPiece[]> {
     }
 
     public void addPiece(final ChessPiece chessPiece) {
-        this.activePieces.put(new Coordinates(chessPiece.getLocation().getX(), chessPiece.getLocation().getY()), chessPiece);
+        this.activePieces.add(chessPiece);
         board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = chessPiece;
     }
 
     public void removePiece(final ChessPiece chessPiece) {
-        this.activePieces.replace(new Coordinates(chessPiece.getLocation().getX(), chessPiece.getLocation().getY()), null);
+        this.activePieces.remove(chessPiece);
         board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = null;
     }
 
@@ -60,7 +59,8 @@ public class Chessboard implements Iterable<ChessPiece[]> {
             ChessPiece targetPiece = getPiece(new Coordinates(targetPosCord));
             ChessPiece currentPiece = getPiece(new Coordinates(currentPosCoord));
             System.out.println(targetPos + " " + new Coordinates(currentPosCoord));
-            if (targetPiece != null && targetPiece.getPlayer() != player && targetPiece.getPieceType() != PieceType.KING) {
+            if (targetPiece != null && targetPiece.getPlayer() != player
+                    && targetPiece.getPieceType() != PieceType.KING) {
                 removePiece(targetPiece);
                 currentPiece.move(this, targetPos);
             } else if (targetPiece == null) {

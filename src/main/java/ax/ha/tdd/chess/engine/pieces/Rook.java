@@ -26,7 +26,6 @@ public class Rook extends ChessPiece {
 
     @Override
     public boolean canMove(Chessboard chessboard, Coordinates destination) {
-        System.out.println("Rook called");
         int differenceBetweenTarget = 0;
         final int targetPosX = destination.getX();
         final int targetPosY = destination.getY();

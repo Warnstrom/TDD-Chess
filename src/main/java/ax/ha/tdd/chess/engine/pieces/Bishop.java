@@ -26,7 +26,6 @@ public class Bishop extends ChessPiece {
 
     @Override
     public boolean canMove(Chessboard chessboard, Coordinates destination) {
-        System.out.println("Bishop called");
         final int targetPosX = destination.getX();
         final int targetPosY = destination.getY();
         final int curretPosX = location.getX();
